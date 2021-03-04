@@ -20,8 +20,8 @@ public class GameBoard : MonoBehaviour
 
             Vector2 pos = o.transform.position;
 
-            //We don't store the position of our main character
-            if(o.name != "PacMan")
+            //We don't store the position of our main charactes,objects and pellets
+            if(o.name != "PacMan" && o.name != "Pellets" && o.name != "Nodes" && o.name != "Maze" && o.name != "NonNodes")
             {
                 board[(int)pos.x,(int)pos.y] = o;
             } else {

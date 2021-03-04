@@ -219,6 +219,8 @@ public class PacMan : MonoBehaviour
 
             GameObject tile = GameObject.Find("Game").GetComponent<GameBoard>().board[tileX,tileY];
 
+			Debug.Log(tile);
+
             if(tile != null)
             
                 {return tile;}
