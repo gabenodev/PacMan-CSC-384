@@ -3,9 +3,10 @@
 public class NullGameManager : IGameManager
 {
 
-    public bool isPaused => true;
 
-   // bool IGameManager.isPaused { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+   public bool isPaused => true;
+
+    
 
     public void PauseGame()
     {

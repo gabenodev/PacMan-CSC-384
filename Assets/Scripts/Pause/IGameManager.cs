@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IGameManager 
 {
+    bool isPaused { get; }
 
-    bool isPaused { get;}
 
     void PauseGame();
     void ResumeGame();

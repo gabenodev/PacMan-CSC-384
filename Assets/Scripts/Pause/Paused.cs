@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class Paused : MonoBehaviour
 {
+    bool isPaused_ = ServiceLocator.GetGameManager().isPaused;
 
-    private bool LabelEnabled = true;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if(ServiceLocator.GetGameManager().isPaused == false){
+            if(isPaused_ == false){
 
             ServiceLocator.GetGameManager().PauseGame();
+            isPaused_ = true;
+            
 
             }else{
 
             ServiceLocator.GetGameManager().ResumeGame();
-          //  ServiceLocator.GetGameManager().isPaused = false;
-        
+            isPaused_ = false;
+            
+                
+           
             }
         }
 
@@ -26,14 +30,16 @@ public class Paused : MonoBehaviour
     }
     private void OnGUI()
     {
-        if(ServiceLocator.GetGameManager().isPaused)
+        if(isPaused_ == false)
         {
-            GUI.enabled = LabelEnabled;
             GUI.Label(new Rect(10,10,100,20), "Paused");
+          isPaused_ = true;
         }
         else
         {
-            GUI.enabled = true;
+            GUI.enabled = false;
+             isPaused_ = false;
+    
         }
 
     }

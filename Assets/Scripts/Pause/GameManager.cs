@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class GameManager : IGameManager
 {
-    public bool _isPaused;
-    public bool isPaused => _isPaused;
-
+    public bool _isPaused = false;
     
-   // bool IGameManager.isPaused { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public bool isPaused => _isPaused;
+    
 
     public void PauseGame()
     {
