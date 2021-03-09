@@ -47,12 +47,13 @@ public class Ghost : MonoBehaviour
 
         previousNode = currentNode;
 
-      //  Vector2 pacmanPosition = pacMan.transform.position;
-      //  Vector2 targetTile = new Vector2(Mathf.RoundToInt(pacmanPosition.x),Mathf.RoundToInt(pacmanPosition.y));
-      //  targetNode = GetNodeAtPosition(targetTile);
-        targetNode = ChooseNextNode();
+        Vector2 pacmanPosition = pacMan.transform.position;
+        Vector2 targetTile = new Vector2(Mathf.RoundToInt(pacmanPosition.x),Mathf.RoundToInt(pacmanPosition.y));
+        targetNode = GetNodeAtPosition(targetTile);
+     // Debug.Log("This is target node" + targetNode);
+    //    targetNode = ChooseNextNode();
 
-       Debug.Log("This is target node" + targetNode);
+       
         
     }
 

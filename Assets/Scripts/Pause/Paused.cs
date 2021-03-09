@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Paused : MonoBehaviour
 {
-    bool isPaused_ = ServiceLocator.GetGameManager().isPaused;
+    bool isPaused_ = false;
+
 
     private void Update()
     {
