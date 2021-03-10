@@ -20,7 +20,7 @@ public class PacMan : MonoBehaviour
         if(node != null)
         {
             currentNode = node;
-            Debug.Log(currentNode);
+           // Debug.Log(currentNode);
         }
        
        direction = Vector2.left;
@@ -250,6 +250,7 @@ public class PacMan : MonoBehaviour
     {
         Vector2 vec = targetPosition - (Vector2)previousNode.transform.position;
         return vec.sqrMagnitude;
+        
     }
 
     GameObject getPortal (Vector2 pos)

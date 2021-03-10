@@ -30,7 +30,7 @@ public class Ghost : MonoBehaviour
 
     private GameObject pacMan;
 
-    private Node currentNode, targetNode, previousNode;
+    private  Node currentNode, targetNode, previousNode;
     private Vector2 direction, nextDirection;
 
     // Start is called before the first frame update
@@ -44,6 +44,8 @@ public class Ghost : MonoBehaviour
         {
             currentNode = node;
         }
+
+        direction = Vector2.right;
 
         previousNode = currentNode;
 
@@ -61,6 +63,8 @@ public class Ghost : MonoBehaviour
     void Update()
     {
         modeUpdate();
+
+        Move();
     }
 
     void Move() 
@@ -73,7 +77,7 @@ public class Ghost : MonoBehaviour
 
                 transform.localPosition = currentNode.transform.position;
 
-                GameObject otherPortal = getPortal (currentNode.transform.localPosition);
+                 GameObject otherPortal = getPortal(currentNode.transform.position);
 
                 if (otherPortal != null)
                 {
@@ -86,6 +90,8 @@ public class Ghost : MonoBehaviour
                 previousNode = currentNode;
                 currentNode = null;
             } else {
+
+              //  Debug.Log("He should be moving");
 
                 transform.localPosition += (Vector3)direction *moveSpeed * Time.deltaTime;
             }
@@ -241,19 +247,21 @@ public class Ghost : MonoBehaviour
         return null;
     }
 
-    float LengthFromNode (Vector2 targetPosition)
+
+    bool overShootTarget()
+    {
+        float nodeToTarget = lengthFromNode(targetNode.transform.position);
+        float nodeToSelf = lengthFromNode(transform.localPosition);
+
+        return nodeToSelf > nodeToTarget;
+    }
+
+     float lengthFromNode(Vector2 targetPosition)
     {
         Vector2 vec = targetPosition - (Vector2)previousNode.transform.position;
         return vec.sqrMagnitude;
     }
 
-    bool overShootTarget()
-    {
-        float nodeToTarget = LengthFromNode(targetNode.transform.position);
-        float nodeToSelf = LengthFromNode(transform.localPosition);
-
-        return nodeToSelf > nodeToTarget;
-    }
 
     float GetDistance(Vector2 posA, Vector2 posB)
     {
