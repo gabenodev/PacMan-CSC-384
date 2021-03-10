@@ -21,11 +21,11 @@ public class GameBoard : MonoBehaviour
             Vector2 pos = o.transform.position;
 
             //We don't store the position of our main charactes,objects and pellets
-            if(o.name != "PacMan" && o.name != "Pellets" && o.name != "Nodes" && o.name != "Maze" && o.name != "NonNodes")
+            if(o.name != "PacMan" && o.name != "Pellets" && o.name != "Nodes" && o.name != "Maze" && o.name != "NonNodes" && o.tag != "Ghost")
             {
                 board[(int)pos.x,(int)pos.y] = o;
             } else {
-                Debug.Log("Found PacMan at: " + pos);
+             //   Debug.Log("Found PacMan at: " + pos);
             }
 
         }
