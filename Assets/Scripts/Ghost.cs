@@ -221,7 +221,7 @@ public class Ghost : MonoBehaviour
         Vector2 targetTile = pacManTile + (2 * pacManOrientation);
 
         //- Temporary Blinky Position
-        Vector2 tempBlinkyPosition = GameObject.Find("Ghost").transform.localPosition;
+        Vector2 tempBlinkyPosition = GameObject.Find("ghost").transform.localPosition;
 
         int blinkyPositionX = Mathf.RoundToInt(tempBlinkyPosition.x);
         int blinkyPositionY = Mathf.RoundToInt(tempBlinkyPosition.y);
@@ -232,8 +232,10 @@ public class Ghost : MonoBehaviour
         distance *= 2;
 
         targetTile = new Vector2(tempBlinkyPosition.x + distance, tempBlinkyPosition.y + distance);
-
+        
         return targetTile;
+        
+        
 
     }
 
