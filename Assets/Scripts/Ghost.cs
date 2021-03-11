@@ -26,6 +26,12 @@ public class Ghost : MonoBehaviour
     private int modeChangeIteration = 1;
     private float modeChangeTimer = 0;
 
+    public RuntimeAnimatorController ghostUp;
+    public RuntimeAnimatorController ghostDown;
+    public RuntimeAnimatorController ghostLeft;
+    public RuntimeAnimatorController ghostRight;
+
+
     public enum Mode {
         Chase,
         Scatter,
@@ -74,6 +80,8 @@ public class Ghost : MonoBehaviour
 
 
         previousNode = currentNode;
+
+        UpdateAnimatorController();
        
         
     }
@@ -86,6 +94,34 @@ public class Ghost : MonoBehaviour
         Move();
 
         releaseGhost();
+    }
+
+    void UpdateAnimatorController()
+    {
+        if(direction == Vector2.up)
+        {
+
+            transform.GetComponent<Animator>().runtimeAnimatorController = ghostUp;
+
+        }else if(direction == Vector2.down)
+        {
+
+            transform.GetComponent<Animator>().runtimeAnimatorController = ghostDown;
+
+        }else if(direction == Vector2.left) {
+
+            transform.GetComponent<Animator>().runtimeAnimatorController = ghostLeft;
+
+        }else if(direction == Vector2.right)
+        {
+
+            transform.GetComponent<Animator>().runtimeAnimatorController = ghostRight;
+
+        } else {
+
+            transform.GetComponent<Animator>().runtimeAnimatorController = ghostLeft;
+        }
+
     }
 
     void Move() 
@@ -110,6 +146,9 @@ public class Ghost : MonoBehaviour
                 targetNode = ChooseNextNode();
                 previousNode = currentNode;
                 currentNode = null;
+
+                UpdateAnimatorController();
+
             } else {
 
               //  Debug.Log("He should be moving");
@@ -221,7 +260,7 @@ public class Ghost : MonoBehaviour
         Vector2 targetTile = pacManTile + (2 * pacManOrientation);
 
         //- Temporary Blinky Position
-        Vector2 tempBlinkyPosition = GameObject.Find("ghost").transform.localPosition;
+        Vector2 tempBlinkyPosition = GameObject.Find("ghost_blue").transform.localPosition;
 
         int blinkyPositionX = Mathf.RoundToInt(tempBlinkyPosition.x);
         int blinkyPositionY = Mathf.RoundToInt(tempBlinkyPosition.y);
