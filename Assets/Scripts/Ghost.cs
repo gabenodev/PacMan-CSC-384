@@ -30,7 +30,12 @@ public class Ghost : MonoBehaviour
     public RuntimeAnimatorController ghostDown;
     public RuntimeAnimatorController ghostLeft;
     public RuntimeAnimatorController ghostRight;
-
+    public RuntimeAnimatorController ghostWhite;
+    public RuntimeAnimatorController ghostBlue;
+    
+    
+    public RuntimeAnimatorController frightened;
+    
 
     public enum Mode {
         Chase,
