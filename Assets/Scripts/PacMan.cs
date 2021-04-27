@@ -8,7 +8,6 @@ public class PacMan : MonoBehaviour
     public float speed = 4.0f;
     private Vector2 direction = Vector2.zero;
     private Vector2 nextDirection;
-
     private Node currentNode, previousNode ,targetNode;
 
     // Start is called before the first frame update
@@ -195,7 +194,17 @@ public class PacMan : MonoBehaviour
                 {
                     o.GetComponent<SpriteRenderer>().enabled = false;
                     tile.isConsumed = true;
+
+                    if(tile.isEnergizer) {
+
+                    GameObject[] ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+
+                    foreach (GameObject go in ghosts)
+                    {
+                        go.GetComponent<Ghost>().StartFrightenedMode();
+                    }
 					
+                    }
                 }
             }
         }

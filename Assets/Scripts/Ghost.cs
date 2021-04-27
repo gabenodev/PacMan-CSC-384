@@ -5,12 +5,16 @@ using UnityEngine;
 public class Ghost : MonoBehaviour
 {
 
-    public float moveSpeed = 3.9f;
+    public float moveSpeed = 5.9f;
+    public float frightenedModeMoveSpeed = 2.9f;
 
     public int pinkyReleaseTimer = 5;
     public int inkyReleaseTimer = 14;
     public int clydeReleaseTimer = 21;
     public float ghostReleaseTimer = 0;
+
+    public int frightenedModeDuration = 10;
+    public int startBlinkingAt = 7;
     public bool isInGhostHouse = false;
 
     public Node startingPosition;
@@ -26,15 +30,19 @@ public class Ghost : MonoBehaviour
     private int modeChangeIteration = 1;
     private float modeChangeTimer = 0;
 
+    private float frightenedModeTimer = 0;
+    private float blinkTimer = 0;
+    
+    private bool frightenedModeIsWhite = false;
+
+    private float previousMoveSpeed;
+
     public RuntimeAnimatorController ghostUp;
     public RuntimeAnimatorController ghostDown;
     public RuntimeAnimatorController ghostLeft;
     public RuntimeAnimatorController ghostRight;
     public RuntimeAnimatorController ghostWhite;
     public RuntimeAnimatorController ghostBlue;
-    
-    
-    public RuntimeAnimatorController frightened;
     
 
     public enum Mode {
@@ -103,28 +111,35 @@ public class Ghost : MonoBehaviour
 
     void UpdateAnimatorController()
     {
-        if(direction == Vector2.up)
-        {
 
-            transform.GetComponent<Animator>().runtimeAnimatorController = ghostUp;
+        if(currentMode != Mode.Frightened) {
 
-        }else if(direction == Vector2.down)
-        {
+            if(direction == Vector2.up)
+            {
 
-            transform.GetComponent<Animator>().runtimeAnimatorController = ghostDown;
+                transform.GetComponent<Animator>().runtimeAnimatorController = ghostUp;
 
-        }else if(direction == Vector2.left) {
+            }else if(direction == Vector2.down)
+            {
 
-            transform.GetComponent<Animator>().runtimeAnimatorController = ghostLeft;
+                transform.GetComponent<Animator>().runtimeAnimatorController = ghostDown;
 
-        }else if(direction == Vector2.right)
-        {
+            }else if(direction == Vector2.left) {
 
-            transform.GetComponent<Animator>().runtimeAnimatorController = ghostRight;
+                transform.GetComponent<Animator>().runtimeAnimatorController = ghostLeft;
+
+            }else if(direction == Vector2.right)
+            {
+
+                transform.GetComponent<Animator>().runtimeAnimatorController = ghostRight;
+
+            } else {
+
+                transform.GetComponent<Animator>().runtimeAnimatorController = ghostLeft;
+            }
 
         } else {
-
-            transform.GetComponent<Animator>().runtimeAnimatorController = ghostLeft;
+            transform.GetComponent<Animator>().runtimeAnimatorController = ghostBlue;
         }
 
     }
@@ -165,7 +180,7 @@ public class Ghost : MonoBehaviour
 
     void modeUpdate()
     {
-        if(currentMode != Mode.Frightened)
+        if(currentMode != Mode.Frightened) {
 
         modeChangeTimer += Time.deltaTime;
 
@@ -194,14 +209,12 @@ public class Ghost : MonoBehaviour
 
         } else if (modeChangeIteration == 3) {
 
-            if(currentMode == Mode.Scatter && modeChangeTimer > scatterModeTimer3)
-            {
+            if(currentMode == Mode.Scatter && modeChangeTimer > scatterModeTimer3) {
                 changeMode(Mode.Chase);
                 modeChangeTimer = 0;
             }
 
-            if(currentMode == Mode.Chase && modeChangeTimer > chaseModeTimer3)
-            {
+            if(currentMode == Mode.Chase && modeChangeTimer > chaseModeTimer3) {
                 modeChangeIteration = 4;
                 changeMode(Mode.Scatter);
                 modeChangeTimer = 0;
@@ -214,16 +227,67 @@ public class Ghost : MonoBehaviour
                 changeMode(Mode.Chase);
                 modeChangeTimer = 0;
             }
+        }
 
         } else if(currentMode == Mode.Frightened) {
+
+          frightenedModeTimer += Time.deltaTime;
+
+            if(frightenedModeTimer >= frightenedModeDuration)
+            {
+                frightenedModeTimer = 0;
+                changeMode (previousMode);
+            }
+
+            if(frightenedModeTimer >= startBlinkingAt)
+            {
+                blinkTimer += Time.deltaTime;
+
+                if (blinkTimer >= 0.1f)
+                {
+                    blinkTimer = 0;
+
+                    if(frightenedModeIsWhite)
+                    {
+                        transform.GetComponent<Animator>().runtimeAnimatorController = ghostBlue;
+                        frightenedModeIsWhite = false;
+                    } else {
+                        
+                        transform.GetComponent<Animator>().runtimeAnimatorController = ghostWhite;
+                        frightenedModeIsWhite = true;
+
+                    }
+                }
+            }
 
         }
     }
 
     void changeMode(Mode m)
     {
+
+        if(currentMode == Mode.Frightened) {
+
+            moveSpeed = previousMoveSpeed;
+        }
+
+        if (m == Mode.Frightened) {
+            
+            previousMoveSpeed = moveSpeed;
+            moveSpeed = frightenedModeMoveSpeed;
+        }
+
+        previousMode = currentMode;
         currentMode = m;
+
+        UpdateAnimatorController();
     }
+
+    public void StartFrightenedMode()
+    {
+        changeMode(Mode.Frightened);
+    }
+
 
     Vector2 GetRedGhostTargetTile()
     {
