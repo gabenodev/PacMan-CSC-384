@@ -10,6 +10,9 @@ public class Tile : MonoBehaviour
     public bool isEnergizer;
     public bool isConsumed;
 
+    public bool isGhostHouseEntrance;
+    public bool isGhostHouse;
+
     public GameObject portalReceiver;
     
 }
