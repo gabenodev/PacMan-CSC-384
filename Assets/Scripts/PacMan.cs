@@ -5,16 +5,22 @@ using UnityEngine;
 public class PacMan : MonoBehaviour
 {
     public Vector2 orientation;
+
+
     public float speed = 4.0f;
     private Vector2 direction = Vector2.zero;
     private Vector2 nextDirection;
     private Node currentNode, previousNode ,targetNode;
+
+    private Node startingPosition;
 
     // Start is called before the first frame update
     void Start()
     {
 
         Node node = getNodeAtPostions (transform.localPosition);
+
+        startingPosition = node;
 
         if(node != null)
         {
@@ -26,6 +32,20 @@ public class PacMan : MonoBehaviour
        orientation = Vector2.left;
 
        changePosition(direction);
+
+    }
+
+    public void Restart ()
+    {
+     transform.position = startingPosition.transform.position;
+
+     currentNode = startingPosition;
+
+     direction = Vector2.left;
+     orientation = Vector2.left;
+     nextDirection = Vector2.left;
+
+     changePosition(direction);
 
     }
 

@@ -8,6 +8,10 @@ public class GameBoard : MonoBehaviour
     private static int boardWidth = 28;
     private static int boardHeight = 36;
 
+    public int totalPellets = 0;
+    public int score = 0;
+    public int pacManLives = 3;
+
    // Getting the position for each object on the board
     public GameObject[,] board = new GameObject[boardWidth, boardHeight];
     // Start is called before the first frame update
@@ -28,6 +32,21 @@ public class GameBoard : MonoBehaviour
              //   Debug.Log("Found PacMan at: " + pos);
             }
 
+        }
+    }
+
+    public void Restart() 
+    {
+        pacManLives -= 1;
+
+        GameObject pacMan = GameObject.Find("PacMan");
+        pacMan.transform.GetComponent<PacMan>().Restart();
+        
+        GameObject [] o = GameObject.FindGameObjectsWithTag("Ghost");
+
+        foreach(GameObject ghost in o)
+        {
+            ghost.transform.GetComponent<Ghost>().Restart();
         }
     }
 
