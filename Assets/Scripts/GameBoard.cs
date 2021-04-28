@@ -27,6 +27,14 @@ public class GameBoard : MonoBehaviour
             //We don't store the position of our main charactes,objects and pellets
             if(o.name != "PacMan" && o.name != "Pellets" && o.name != "Nodes" && o.name != "Maze" && o.name != "NonNodes" && o.tag != "Ghost" && o.tag != "ghostHome")
             {
+                if(o.GetComponent<Tile> () != null)
+                {
+                    if(o.GetComponent<Tile>().isPellet || o.GetComponent<Tile>().isEnergizer) 
+                    {
+                        totalPellets++;
+                    }
+                }
+
                 board[(int)pos.x,(int)pos.y] = o;
             } else {
              //   Debug.Log("Found PacMan at: " + pos);
@@ -49,6 +57,7 @@ public class GameBoard : MonoBehaviour
             ghost.transform.GetComponent<Ghost>().Restart();
         }
     }
+    
 
     // Update is called once per frame
     void Update()

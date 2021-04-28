@@ -43,6 +43,7 @@ public class Ghost : MonoBehaviour
     
     private bool frightenedModeIsWhite = false;
 
+
     private float previousMoveSpeed;
 
     public RuntimeAnimatorController ghostUp;
@@ -82,6 +83,7 @@ public class Ghost : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         pacMan = GameObject.FindGameObjectWithTag("PacMan");
 
         Node node = GetNodeAtPosition(transform.localPosition);
@@ -107,6 +109,7 @@ public class Ghost : MonoBehaviour
        
     }
 
+
     public void Restart() 
     {
 
@@ -115,11 +118,11 @@ public class Ghost : MonoBehaviour
         ghostReleaseTimer = 0;
         modeChangeIteration = 1;
         modeChangeTimer = 0;
+        currentMode = Mode.Chase;
 
-        if (transform.name != "ghost")
-        {
+        if (transform.name != "Ghost_Blinky")
             isInGhostHouse = true;
-        }
+        
 
         currentNode = startingPosition;
 
@@ -136,6 +139,8 @@ public class Ghost : MonoBehaviour
         UpdateAnimatorController();
 
     }
+    
+    
 
     // Update is called once per frame
     void Update()
@@ -186,19 +191,19 @@ public class Ghost : MonoBehaviour
         }
     }
 
-    void checkCollision()
-    {
+    void checkCollision(){
         Rect ghostRect = new Rect (transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size/4); 
         Rect pacManRect = new Rect (pacMan.transform.position, pacMan.transform.GetComponent<SpriteRenderer>().sprite.bounds.size/4);
+        
 
-        if(ghostRect.Overlaps(pacManRect))
-        {
-            if(currentMode == Mode.Frightened){
-
+        if(ghostRect.Overlaps(pacManRect)) {
+            if(currentMode == Mode.Frightened || currentMode == Mode.Consumed) {
+           
             Consumed();
 
             } else {
 
+                
                 GameObject.Find("Game").transform.GetComponent<GameBoard>().Restart();
 
             }

@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class PacMan : MonoBehaviour
 {
+    public AudioClip chomp1;
+    public AudioClip chomp2;
+
     public Vector2 orientation;
 
 
-    public float speed = 4.0f;
+    public float speed = 6.0f;
+
+    public bool playedChomp1 = false;
+    private AudioSource audio;
     private Vector2 direction = Vector2.zero;
     private Vector2 nextDirection;
     private Node currentNode, previousNode ,targetNode;
+
+    private int pelletConsumed = 0;
 
     private Node startingPosition;
 
     // Start is called before the first frame update
     void Start()
     {
+        audio = transform.GetComponent<AudioSource>();
 
         Node node = getNodeAtPostions (transform.localPosition);
 
@@ -35,6 +44,7 @@ public class PacMan : MonoBehaviour
 
     }
 
+
     public void Restart ()
     {
      transform.position = startingPosition.transform.position;
@@ -48,6 +58,7 @@ public class PacMan : MonoBehaviour
      changePosition(direction);
 
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -57,6 +68,20 @@ public class PacMan : MonoBehaviour
         UpdateOrientation();
         consumePellet();
 
+    }
+
+    void PlayChompSound()
+    {
+        if(playedChomp1)
+        {
+            //- Play chomp 2, set playedChomp 1 false;
+            audio.PlayOneShot(chomp2);
+            playedChomp1 = false;
+        } else {
+            // - Play chomp 1 , set playedChomp1 to true;
+            audio.PlayOneShot(chomp1);
+            playedChomp1 = true;
+        }
     }
 
     void CheckInput ()
@@ -214,6 +239,9 @@ public class PacMan : MonoBehaviour
                 {
                     o.GetComponent<SpriteRenderer>().enabled = false;
                     tile.isConsumed = true;
+                    GameObject.Find("Game").GetComponent<GameBoard>().score += 1;
+                    pelletConsumed++;
+                    PlayChompSound();
 
                     if(tile.isEnergizer) {
 
