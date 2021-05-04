@@ -70,7 +70,7 @@ public class Ghost : MonoBehaviour
 
     public GhostType ghostType = GhostType.Red;
 
-    private GameObject pacMan;
+    public GameObject pacMan;
 
     Mode currentMode = Mode.Scatter;
     Mode previousMode;
@@ -448,6 +448,8 @@ public class Ghost : MonoBehaviour
         return targetTile;
 
     }
+    
+    
 
     Vector2 GetBlueGhostTargetTile()
     {
@@ -476,8 +478,6 @@ public class Ghost : MonoBehaviour
         targetTile = new Vector2(tempBlinkyPosition.x + distance, tempBlinkyPosition.y + distance);
         
         return targetTile;
-        
-        
 
     }
 

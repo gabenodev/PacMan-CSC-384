@@ -13,7 +13,7 @@ public class PacMan : MonoBehaviour
     public float speed = 6.0f;
 
     public bool playedChomp1 = false;
-    private AudioSource audio;
+    private new AudioSource audio;
     private Vector2 direction = Vector2.zero;
     private Vector2 nextDirection;
     private Node currentNode, previousNode ,targetNode;
@@ -75,11 +75,11 @@ public class PacMan : MonoBehaviour
         if(playedChomp1)
         {
             //- Play chomp 2, set playedChomp 1 false;
-            audio.PlayOneShot(chomp2);
+            GetComponent<AudioSource>().PlayOneShot(chomp2);
             playedChomp1 = false;
         } else {
             // - Play chomp 1 , set playedChomp1 to true;
-            audio.PlayOneShot(chomp1);
+            GetComponent<AudioSource>().PlayOneShot(chomp1);
             playedChomp1 = true;
         }
     }
@@ -239,7 +239,7 @@ public class PacMan : MonoBehaviour
                 {
                     o.GetComponent<SpriteRenderer>().enabled = false;
                     tile.isConsumed = true;
-                    GameObject.Find("Game").GetComponent<GameBoard>().score += 1;
+                    GameObject.Find("Game").GetComponent<GameBoard>().score += 10;
                     pelletConsumed++;
                     PlayChompSound();
 

@@ -33,7 +33,7 @@ public class Paused : MonoBehaviour
     {
         if(isPaused_ == false)
         {
-            GUI.Label(new Rect(10,10,100,20), "Paused");
+          //  GUI.Label(new Rect(10,10,100,20), "Paused");
           isPaused_ = true;
         }
         else

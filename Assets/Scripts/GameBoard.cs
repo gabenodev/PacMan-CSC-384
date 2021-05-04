@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameBoard : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class GameBoard : MonoBehaviour
     public int totalPellets = 0;
     public int score = 0;
     public int pacManLives = 3;
+
+    public Text Score;
+
 
    // Getting the position for each object on the board
     public GameObject[,] board = new GameObject[boardWidth, boardHeight];
@@ -25,7 +29,7 @@ public class GameBoard : MonoBehaviour
             Vector2 pos = o.transform.position;
 
             //We don't store the position of our main charactes,objects and pellets
-            if(o.name != "PacMan" && o.name != "Pellets" && o.name != "Nodes" && o.name != "Maze" && o.name != "NonNodes" && o.tag != "Ghost" && o.tag != "ghostHome")
+            if(o.name != "PacMan" && o.name != "Pellets" && o.name != "Nodes" && o.name != "Maze" && o.name != "NonNodes" && o.tag != "Ghost" && o.tag != "ghostHome" && o.name != "Canvas" && o.name != "scoreText" && o.name != "Score")
             {
                 if(o.GetComponent<Tile> () != null)
                 {
@@ -57,11 +61,19 @@ public class GameBoard : MonoBehaviour
             ghost.transform.GetComponent<Ghost>().Restart();
         }
     }
+
+
     
 
     // Update is called once per frame
     void Update()
     {
+        UpdateUI();
         
+    }
+
+    void UpdateUI()
+    {
+        Score.text = score.ToString();
     }
 }
