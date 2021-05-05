@@ -69,7 +69,7 @@ public class Ghost : MonoBehaviour
     }
 
     public GhostType ghostType = GhostType.Red;
-
+    
     public GameObject pacMan;
 
     Mode currentMode = Mode.Scatter;
@@ -511,6 +511,7 @@ public class Ghost : MonoBehaviour
         } else if (ghostType == GhostType.Pink){
 
             targetTile = GetPinkGhostTargetTile();
+          // targetTile = GameObject.Find("ghost_pink").GetComponent("GhostPink").GetPinkGhostTargetTile();
 
         } else if (ghostType == GhostType.Blue) {
 

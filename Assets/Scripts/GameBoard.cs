@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameBoard : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class GameBoard : MonoBehaviour
             Vector2 pos = o.transform.position;
 
             //We don't store the position of our main charactes,objects and pellets
-            if(o.name != "PacMan" && o.name != "Pellets" && o.name != "Nodes" && o.name != "Maze" && o.name != "NonNodes" && o.tag != "Ghost" && o.tag != "ghostHome" && o.name != "Canvas" && o.name != "scoreText" && o.name != "Score")
+            if(o.name != "PacMan" && o.name != "Pellets" && o.name != "Nodes" && o.name != "Maze" && o.name != "NonNodes" && o.tag != "Ghost" && o.tag != "ghostHome" && o.name != "Canvas" && o.name != "scoreText" && o.name != "Score" && o.name != "SaveButton" && o.name !="Text" && o.name !="PauseMenu" && o.name !="Pop Ups" && o.name !="Pop Up01" && o.name != "Tutorial Manager"&& o.name !="Pop Up02"&& o.name !="Pop Up03"&& o.name !="Pop Up04" && o.name !="Pop Up05" && o.name !="Pop Up06")
             {
                 if(o.GetComponent<Tile> () != null)
                 {
@@ -60,7 +61,13 @@ public class GameBoard : MonoBehaviour
         {
             ghost.transform.GetComponent<Ghost>().Restart();
         }
+        if(pacManLives == 0)
+        {
+            SceneManager.LoadScene("GameMenu");
+            Start();
+        }
     }
+
 
 
     
@@ -69,11 +76,20 @@ public class GameBoard : MonoBehaviour
     void Update()
     {
         UpdateUI();
+        endGame();
         
     }
 
     void UpdateUI()
     {
         Score.text = score.ToString();
+    }
+
+    public void endGame()
+    {
+        if(score == 2340)
+        {
+            SceneManager.LoadScene("GameMenu");
+        }
     }
 }

@@ -1,11 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostPink : Ghost
 {
-/*
-    public GhostType Pink;
+  /*public GameObject pacMan;
    public  Vector2 GetPinkGhostTargetTile()
     {
         //Four tiles ahead Pac-man
@@ -20,6 +19,14 @@ public class GhostPink : Ghost
 
         return targetTile;
 
+    }
+
+    void releasePinkGhost()
+    {
+        if(ghostType == GhostType.Pink && isInGhostHouse)
+        {
+            isInGhostHouse = false;
+        }
     }
     */
 }

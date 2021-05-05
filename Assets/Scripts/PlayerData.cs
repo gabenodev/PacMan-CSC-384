@@ -5,7 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData 
 {
-    public float[] positionPacMan;
+  /*  public float[] positionPacMan;
+    GameObject pacMan = GameObject.Find("PacMan");
+    GameObject ghostRed = GameObject.Find("Ghost_Blinky");
 
 public enum GhostType {
         Red,
@@ -15,10 +17,26 @@ public enum GhostType {
     }
     public GhostType ghostType;
     public float[] positionGhostRed;
-  
-   
-   public PlayerData(PacMan pacMan, Ghost ghostRed)
+  */
+
+
+    public float[] positionPacMan;
+  // GameObject pacMan = GameObject.Find("PacMan");
+   PacMan pacMan;
+   public PlayerData(PacMan pacMan)
    {
+       pacMan = this.pacMan;
+       positionPacMan = new float[2];
+       positionPacMan[0] = pacMan.transform.position.x;
+       positionPacMan[1] = pacMan.transform.position.y;
+
+
+
+
+
+       /*
+       pacMan = this.pacMan;
+       ghostRed = this.ghostRed;
       positionPacMan = new float[3];
       positionPacMan[0]=pacMan.transform.position.x;
       positionPacMan[1]=pacMan.transform.position.y;
@@ -32,6 +50,7 @@ public enum GhostType {
             positionGhostRed[1] = ghostRed.transform.position.y;
             positionGhostRed[2] = ghostRed.transform.position.z;
         }
-      
+
+     */ 
    }
 }

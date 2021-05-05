@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : IGameManager
 {
     public bool _isPaused = false;
     
     public bool isPaused => _isPaused;
-    
+
 
     public void PauseGame()
     {
@@ -20,5 +21,7 @@ public class GameManager : IGameManager
         _isPaused = isPaused;
         Time.timeScale = 1f;
     }
+
+   
 
 }

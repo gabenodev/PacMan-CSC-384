@@ -1,16 +1,16 @@
 ﻿using System.IO;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
-
+[System.Serializable]
 public static class SaveSystem 
 {
-    public static void SavePlayer(PacMan pacMan, Ghost ghostRed)
+    public static void SavePlayer(PacMan pacMan)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(pacMan, ghostRed);
+        PlayerData data = new PlayerData(pacMan);
 
         formatter.Serialize(stream, data);
         stream.Close();
